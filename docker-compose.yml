@@ -1,0 +1,29 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: jeux-container
+    networks:
+      - my_network
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: nom_base_donnee
+      MYSQL_USER: nom_utilisateur
+      MYSQL_PASSWORD: motdepasse_utilisateur
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin-container
+    networks:
+      - my_network
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: nom_utilisateur
+      PMA_PASSWORD: motdepasse_utilisateur
+    ports:
+      - "8080:80"
+
+networks:
+  my_network:
+    driver: bridge
